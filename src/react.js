@@ -11,7 +11,15 @@ function renderRealDOM(vdom) {
 }
 
 export function render(vdom, container) {
-  container.appendChild(renderRealDOM(vdom));
+  let prevVdom = null;
+
+  return function (nextVdom, container) {
+    if (prevVdom === null) prevVdom = nextVdom;
+
+    // diff 로직이 존재할 것
+
+    container.appendChild(renderRealDOM(nextVdom));
+  };
 }
 
 export function createElement(tagName, props, ...children) {
