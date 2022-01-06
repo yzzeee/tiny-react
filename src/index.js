@@ -9,4 +9,23 @@ function Title() {
   );
 }
 
-render(<Title />, document.getElementById('root'));
+export class Component {}
+
+class Body extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <div>This is Class Component</div>;
+  }
+}
+
+console.log(Title(), new Body().render()); // 가상돔 확인해보기
+
+render(
+  <div>
+    <Title />
+    <Body />
+  </div>,
+  document.getElementById('root')
+);

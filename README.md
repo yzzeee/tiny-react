@@ -271,3 +271,44 @@ export function createElement(tagName, props, ...children) {
 기존의 함수와 동일하게 동작하면서 이전 상태값을 클로저를 통해 기억해둘 수 있도록 IIFE를 활용하여 수정한다.
 diff logic 부분에서 이전값과 비교 알고리즘을 작성할 수 있을 것이다.
 실제 구현은 이렇게 단순하지 않겠지만, Tiny react에서는 간단히 이정도만 생각하도록 한다.
+
+**10. 클래스 컴포넌트 랜더링하기**
+```javascript
+// /src/index.js
+/* @jsx createElement */
+// 해당 jsx 구문을 어떤 지시어로 변환할 것인가에 대한 명세 default React.createElement
+/* @jsx createElement */
+import { createElement, render } from './react.js';
+
+function Title() {
+    return (
+        <h2>
+            Hello Tiny React <div>Bye Tiny React</div>
+        </h2>
+    );
+}
+
+export class Component {}
+
+class Body extends Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return <div>This is Class Component</div>;
+    }
+}
+
+console.log(Title(), new Body().render()); // 가상돔 확인해보기
+
+render(
+    <div>
+        <Title />
+        <Body />
+    </div>,
+    document.getElementById('root')
+);
+```
+여기까지 하면 동작을 한다.
+다만 프로퍼티 처리, 클래스컴포넌트의 라이프사이클,
+인스턴스 생성 제한(인스턴스를 전역적인 저장소에 저장 후 상태를 관리 > 함수형 컴포넌트가 상태를 가지지 않는 이유를 생각해 볼 수 있다.) 등..
