@@ -1,9 +1,21 @@
 import { Component } from './index.js';
+
+let hooks = [];
+let currentComponent = -1;
+
 export function useState(initValue) {
-  let value = initValue;
-  return [value, nextValue => {
-    value = nextValue;
-  }];
+  let position = currentComponent;
+
+  if(!hooks[position]) {
+    hooks[position] = initValue;
+  }
+
+  return [
+    hooks[position],
+    (nextValue) => {
+      hooks[position] = nextValue;
+    }
+  ]
 }
 
 function renderRealDOM(vdom) {
